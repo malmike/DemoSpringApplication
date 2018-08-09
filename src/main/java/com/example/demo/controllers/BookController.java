@@ -11,27 +11,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping("/api/books")
+    @GetMapping("/books")
     public Iterable findAll(){
         return bookRepository.findAll();
     }
 
-    @GetMapping("/api/books/{bookTitle}")
+    @GetMapping("/books/{bookTitle}")
     public List findByTitle(@PathVariable String bookTitle){
         return bookRepository.findByTitle(bookTitle);
     }
 
-    @GetMapping("/api/book/{uuid}")
+    @GetMapping("/book/{uuid}")
     public Book findByUuid(@PathVariable String uuid){
         return bookRepository.findByUuid(uuid);
     }
 
-    @PostMapping("/api/book")
+    @PostMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(@RequestBody Book book){
         if(book.getTitle() == null || book.getAuthor() == null ||
@@ -40,13 +41,13 @@ public class BookController {
         return bookRepository.save(book);
     }
 
-    @DeleteMapping("/api/book/{uuid}")
+    @DeleteMapping("/book/{uuid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String uuid){
         bookRepository.deleteByUuid(uuid);
     }
 
-    @PutMapping("/api/book/{uuid}")
+    @PutMapping("/book/{uuid}")
     public Book updateBook(@RequestBody Book book, @PathVariable String uuid){
         if(book.getUuid() == null || !book.getUuid().equals(uuid)){
             throw new BookIdMismatchException("UUID: "+ uuid);
