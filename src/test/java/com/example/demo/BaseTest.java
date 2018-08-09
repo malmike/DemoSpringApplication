@@ -13,7 +13,7 @@ import static org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
 @SpringBootTest(classes = DemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 public class BaseTest {
-    protected static final String API_ROOT = "http://localhost:8081";
+    protected static final String API_ROOT = "http://localhost:8081/demo_api";
 
     protected Book createRandomBook(){
         Book book = new Book();
